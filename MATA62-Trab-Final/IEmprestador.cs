@@ -7,4 +7,7 @@ public interface IEmprestador
     List<Emprestimo> Emprestimos { get; set; }
     List<Reserva> Reservas { get; set; }
     bool IsAluno { get; set; }
+
+    bool VerificaViabilidadeEmprestimo(Livro livro);
+    bool VerificaUsuarioDevedor();
 }

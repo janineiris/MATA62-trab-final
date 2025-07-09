@@ -1,10 +1,19 @@
 namespace MATA62_Trab_Final;
 
-public class Professor: Usuario, IEmprestador
+public class Professor: UsuarioEmprestador, IEmprestador
 {
-    public bool IsAluno { get; set; } = false;
-    public int TempoEmprestimo { get; set; } = 8;
-    public int LimiteEmprestimos { get; set; } = -1;
-    public List<Emprestimo> Emprestimos { get; set; } = new();
-    public List<Reserva> Reservas { get; set; } = new();
+    public bool IsAluno { get; private set; } = false;
+    public int TempoEmprestimo { get; private set; } = 8;
+    public int LimiteEmprestimos { get; private set; } = -1;
+    public List<Emprestimo> Emprestimos { get; private set; } = new();
+    public List<Reserva> Reservas { get; private set; } = new();
+    
+    
+    public override bool VerificaViabilidadeEmprestimo(Livro livro)
+    {
+        var existeExemplarDisponivel = livro.ObterQuantidadeExemplaresDisponiveis() > 0;
+        var existeEmprestimoAtrasado = ObtemEmprestimosAtrasados().Count > 0;
+
+        return existeExemplarDisponivel && !existeEmprestimoAtrasado;
+    }
 }
