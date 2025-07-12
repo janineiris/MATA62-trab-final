@@ -1,3 +1,19 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿namespace MATA62_Trab_Final.Comandos;
 
-Console.WriteLine("Hello, World!");
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        var interpretador = new HelpComando();
+
+        while (true)
+        {
+            Console.Write("> ");
+            string linha = Console.ReadLine();
+
+            if (linha == "sair") break;
+
+            interpretador.ExecutarLinha(linha);
+        }
+    }
+}
