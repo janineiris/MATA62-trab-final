@@ -2,11 +2,18 @@ namespace MATA62_Trab_Final.Comandos;
 
 public class DevolucaoComando : IComando
 {
+    public string Comando { get; set; }
+
+    public DevolucaoComando(string comando)
+    {
+        Comando = comando;
+    }
+    
     public void Executar(string[] args)
     {
         if (args.Length < 2)
         {
-            GerenciadorMensagens.ImprimeErroComando("dev","Necessário passar os parâmetros <codigoUsuario> <codigoLivro>");
+            GerenciadorMensagens.ImprimeErroComando(Comando,"necessário passar os parâmetros <codigoUsuario> <codigoLivro>");
             return;
         }
 

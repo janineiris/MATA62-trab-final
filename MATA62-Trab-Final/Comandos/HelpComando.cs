@@ -1,24 +1,19 @@
 namespace MATA62_Trab_Final.Comandos;
 
-public class HelpComando
+public class HelpComando : IComando
 {
-    private readonly ComandoFactory _fabrica;
-    
-    public HelpComando()
+    public string Comando { get; set; }
+
+    public HelpComando(string comando)
     {
-        _fabrica = new ComandoFactory();
+        Comando = comando;
     }
 
-    public void ExecutarLinha(string linha)
+    public void Executar(string[] args)
     {
-        string[] partesDoComando = linha.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        var interpretador = InterpretadorComandos.ObterInstancia();
+        var comandos = interpretador.ListarComandos();
 
-        if (partesDoComando.Length == 0) return;
-
-        string nome = partesDoComando[0];
-        string[] args = partesDoComando.Skip(1).ToArray();
-
-        IComando comando = _fabrica.Obter(nome);
-        comando.Executar(args);
+        GerenciadorMensagens.Imprime($"Comandos: {string.Join(", ", comandos)}");
     }
 }

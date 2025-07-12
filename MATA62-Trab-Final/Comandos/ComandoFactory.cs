@@ -8,16 +8,22 @@ public class ComandoFactory
     {
         _comandos = new Dictionary<string, IComando>
         {
-            { "emp", new EmprestimoComando() },
-            { "dev", new DevolucaoComando() },
-            { "res", new ReservaComando() },
-            { "obs", new ObservacaoComando() },
-            { "usu", new InformacoesUsuarioComando() },
-            { "liv", new InformacoesLivroComando() },
-            { "ntf", new NotificacoesRecebidasComando() }
+            { "help", new HelpComando("help") },
+            { "emp", new EmprestimoComando("emp") },
+            { "dev", new DevolucaoComando("dev") },
+            { "res", new ReservaComando("res") },
+            { "obs", new ObservacaoComando("obs") },
+            { "usu", new InformacoesUsuarioComando("usu") },
+            { "liv", new InformacoesLivroComando("liv") },
+            { "ntf", new NotificacoesRecebidasComando("ntf") }
         };
     }
 
+    public string[] GetComandos()
+    {
+        return _comandos.Keys.ToArray();
+    }
+    
     public IComando Obter(string nomeComando)
     {
         return _comandos.GetValueOrDefault(nomeComando, new ComandoDesconhecido(nomeComando));

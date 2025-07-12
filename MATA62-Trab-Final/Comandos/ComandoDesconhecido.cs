@@ -2,15 +2,15 @@ namespace MATA62_Trab_Final.Comandos;
 
 public class ComandoDesconhecido : IComando
 {
-    private readonly string _nome;
+    public string Comando { get; set; }
 
-    public ComandoDesconhecido(string nome)
+    public ComandoDesconhecido(string comando)
     {
-        _nome = nome;
+        Comando = comando;
     }
 
     public void Executar(string[] args)
     {
-        GerenciadorMensagens.ImprimeErroComando(_nome, "Comando desconhecido");
+        GerenciadorMensagens.ImprimeErroComando(Comando, "comando desconhecido");
     }
 }

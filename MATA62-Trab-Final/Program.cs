@@ -11,8 +11,8 @@ public class Program
         
         GerenciadorMensagens.ImprimeInicio();
         
-        var interpretador = new HelpComando();
-
+        var interpretador = InterpretadorComandos.ObterInstancia();
+        
         while (true)
         {
             Console.Write("> ");

@@ -2,21 +2,26 @@ namespace MATA62_Trab_Final.Comandos;
 
 public class InformacoesUsuarioComando : IComando
 {
+    public string Comando { get; set; }
+
+    public InformacoesUsuarioComando(string comando)
+    {
+        Comando = comando;
+    }
+    
     public void Executar(string[] args)
     {
         if (args.Length < 1)
         {
-            GerenciadorMensagens.ImprimeErroComando("usu","Necessário passar o parâmetro <codigoUsuario>");
+            GerenciadorMensagens.ImprimeErroComando(Comando,"necessário passar o parâmetro <codigoUsuario>");
             return;
         }
 
         string codigoUsuario = args[0];
         
-        Console.WriteLine($"Informações do usuário {codigoUsuario}");
-        
         if (string.IsNullOrWhiteSpace(codigoUsuario))
         {
-            Console.WriteLine("Código de usuário não informado");
+            GerenciadorMensagens.ImprimeErroComando(Comando, "código de usuário não informado");
             return;
         }
         
