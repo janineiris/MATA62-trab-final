@@ -6,14 +6,14 @@ public class ReservaComando : IComando
     {
         if (args.Length < 2)
         {
-            Console.WriteLine("Uso: dev <idUsuario> <idLivro>");
+            Console.WriteLine("Uso: res <codigoUsuario> <codigoLivro>");
             return;
         }
 
-        string idUsuario = args[0];
-        string idLivro = args[1];
+        string codigoUsuario = args[0];
+        string codigoLivro = args[1];
 
         // Lógica da reserva aqui
-        Console.WriteLine($"Usuário {idUsuario} reservou o livro {idLivro}");
+        Console.WriteLine($"Usuário {codigoUsuario} reservou o livro {codigoLivro}");
     }
 }

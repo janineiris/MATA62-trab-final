@@ -4,19 +4,16 @@ public class InformacoesUsuarioComando : IComando
 {
     public void Executar(string[] args)
     {
-        if (args.Length < 2)
+        if (args.Length < 1)
         {
-            Console.WriteLine("Uso: dev <idUsuario> <idLivro>");
+            Console.WriteLine("Uso: usu <codigoUsuario>");
             return;
         }
 
-        string idUsuario = args[0];
-        string idLivro = args[1];
-
-        // Lógica de informações aqui
-        Console.WriteLine($"Informações do usuário {idUsuario}");
-
-        var codigoUsuario = idUsuario;
+        string codigoUsuario = args[0];
+        
+        Console.WriteLine($"Informações do usuário {codigoUsuario}");
+        
         if (string.IsNullOrWhiteSpace(codigoUsuario))
         {
             Console.WriteLine("Código de usuário não informado");

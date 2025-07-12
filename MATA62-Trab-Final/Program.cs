@@ -8,6 +8,7 @@ public class Program
         repositorio.CriarUsuarios();
         repositorio.CriarLivros();
         repositorio.CriaExemplares();
+        
         var interpretador = new HelpComando();
 
         while (true)

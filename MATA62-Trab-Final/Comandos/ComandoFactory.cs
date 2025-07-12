@@ -10,7 +10,11 @@ public class ComandoFactory
         {
             { "emp", new EmprestimoComando() },
             { "dev", new DevolucaoComando() },
-            { "res", new ReservaComando() }
+            { "res", new ReservaComando() },
+            { "obs", new ObservacaoComando() },
+            { "usu", new InformacoesUsuarioComando() },
+            { "liv", new InformacoesLivroComando() },
+            { "ntf", new NotificacoesRecebidasComando() }
         };
     }
 

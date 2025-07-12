@@ -1,19 +1,19 @@
 namespace MATA62_Trab_Final.Comandos;
 
-public class DevolucaoComando : IComando
+public class ObservacaoComando : IComando
 {
     public void Executar(string[] args)
     {
         if (args.Length < 2)
         {
-            Console.WriteLine("Uso: dev <codigoUsuario> <codigoLivro>");
+            Console.WriteLine("Uso: obs <codigoUsuario> <codigoLivro>");
             return;
         }
 
         string codigoUsuario = args[0];
         string codigoLivro = args[1];
 
-        // Lógica da devolução aqui
-        Console.WriteLine($"Usuário {codigoUsuario} devolveu o livro {codigoLivro}");
+        // Lógica da observação aqui
+        Console.WriteLine($"Usuário {codigoUsuario} observa o livro {codigoLivro}");
     }
 }

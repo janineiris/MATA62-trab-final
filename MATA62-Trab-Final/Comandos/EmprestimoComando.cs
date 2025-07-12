@@ -6,14 +6,14 @@ public class EmprestimoComando : IComando
     {
         if (args.Length < 2)
         {
-            Console.WriteLine("Uso: emp <idUsuario> <idLivro>");
+            Console.WriteLine("Uso: emp <codigoUsuario> <codigoLivro>");
             return;
         }
 
-        string idUsuario = args[0];
-        string idLivro = args[1];
+        string codigoUsuario = args[0];
+        string codigoLivro = args[1];
 
         // Lógica do empréstimo aqui
-        Console.WriteLine($"Usuário {idUsuario} emprestou o livro {idLivro}");
+        Console.WriteLine($"Usuário {codigoUsuario} emprestou o livro {codigoLivro}");
     }
 }
