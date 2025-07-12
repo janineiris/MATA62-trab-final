@@ -3,17 +3,17 @@ namespace MATA62_Trab_Final.Comandos;
 public class HelpComando : IComando
 {
     public string Comando { get; set; }
-
-    public HelpComando(string comando)
+    private readonly Func<string[]> _listarComandos;
+    
+    public HelpComando(string comando, Func<string[]> listarComandos)
     {
         Comando = comando;
+        _listarComandos = listarComandos;
     }
-
+    
     public void Executar(string[] args)
     {
-        var interpretador = InterpretadorComandos.ObterInstancia();
-        var comandos = interpretador.ListarComandos();
-
+        var comandos = _listarComandos();
         GerenciadorMensagens.Imprime($"Comandos: {string.Join(", ", comandos)}");
     }
 }

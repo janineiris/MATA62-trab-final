@@ -19,11 +19,6 @@ public class InterpretadorComandos
         return _instancia;
     }
     
-    public string[] ListarComandos()
-    {
-        return _fabrica.GetComandos();
-    }
-    
     public void ExecutarLinha(string linha)
     {
         string[] partesDoComando = linha.Split(' ', StringSplitOptions.RemoveEmptyEntries);

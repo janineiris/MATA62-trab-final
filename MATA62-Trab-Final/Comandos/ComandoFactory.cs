@@ -8,7 +8,7 @@ public class ComandoFactory
     {
         _comandos = new Dictionary<string, IComando>
         {
-            { "help", new HelpComando("help") },
+            { "help", new HelpComando("help", () => _comandos.Keys.ToArray()) },
             { "emp", new EmprestimoComando("emp") },
             { "dev", new DevolucaoComando("dev") },
             { "res", new ReservaComando("res") },
@@ -17,11 +17,6 @@ public class ComandoFactory
             { "liv", new InformacoesLivroComando("liv") },
             { "ntf", new NotificacoesRecebidasComando("ntf") }
         };
-    }
-
-    public string[] GetComandos()
-    {
-        return _comandos.Keys.ToArray();
     }
     
     public IComando Obter(string nomeComando)
