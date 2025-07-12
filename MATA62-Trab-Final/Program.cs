@@ -4,6 +4,10 @@ public class Program
 {
     public static void Main(string[] args)
     {
+        var repositorio = Repositorio.ObterInstancia();
+        repositorio.CriarUsuarios();
+        repositorio.CriarLivros();
+        repositorio.CriaExemplares();
         var interpretador = new HelpComando();
 
         while (true)

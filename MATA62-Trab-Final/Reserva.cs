@@ -27,4 +27,9 @@ public class Reserva
     {
         return Livro.VerificaCodigoLivro(codigoLivro);
     }
+
+    public string GetTituloLivro()
+    {
+        return Livro.Titulo;
+    }
 }

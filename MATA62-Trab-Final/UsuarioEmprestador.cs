@@ -4,8 +4,8 @@ public abstract class UsuarioEmprestador: Usuario, IEmprestador
 {
     public int TempoEmprestimo { get; set; }
     public int LimiteEmprestimos { get; set; }
-    public List<Emprestimo> Emprestimos { get; set; }
-    public List<Reserva> Reservas { get; set; }
+    public List<Emprestimo> Emprestimos { get; set; } = new ();
+    public List<Reserva> Reservas { get; set; } = new ();
     public bool IsAluno { get; set; }
 
     protected List<Emprestimo> ObtemEmprestimosAtrasados()
@@ -33,5 +33,23 @@ public abstract class UsuarioEmprestador: Usuario, IEmprestador
     public bool VerificaUsuarioDevedor()
     {
         return Emprestimos.Any(e => e.VerificaEmprestimoAtrasado());
+    }
+
+    public void ImprimeInformacoesEmprestimos()
+    {
+        GerenciadorMensagens.Imprime("Empréstimos:");
+        foreach (var emprestimo in Emprestimos)
+        {
+           GerenciadorMensagens.ImprimeEmprestimo(emprestimo); 
+        }
+    }
+    
+    public void ImprimeInformacoesReserva()
+    {
+        GerenciadorMensagens.Imprime("Reservas:");
+        foreach (var reserva in Reservas)
+        {
+            GerenciadorMensagens.ImprimeReserva(reserva); 
+        }
     }
 }

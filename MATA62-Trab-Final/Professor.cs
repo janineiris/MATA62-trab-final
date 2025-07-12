@@ -8,6 +8,11 @@ public class Professor: UsuarioEmprestador, IEmprestador
     public List<Emprestimo> Emprestimos { get; private set; } = new();
     public List<Reserva> Reservas { get; private set; } = new();
     
+    public Professor(string codigo, string nome)
+    {
+        CodIdentificacao = codigo;
+        Nome = nome;
+    }
     
     public override bool VerificaViabilidadeEmprestimo(Livro livro)
     {
