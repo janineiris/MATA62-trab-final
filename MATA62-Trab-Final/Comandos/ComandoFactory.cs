@@ -9,7 +9,8 @@ public class ComandoFactory
         _comandos = new Dictionary<string, IComando>
         {
             { "emp", new EmprestimoComando() },
-            { "dev", new DevolucaoComando() }
+            { "dev", new DevolucaoComando() },
+            { "res", new ReservaComando() }
         };
     }
 
