@@ -6,7 +6,7 @@ public class NotificacoesRecebidasComando : IComando
     {
         if (args.Length < 1)
         {
-            Console.WriteLine("Uso: ntf <codigoUsuario>");
+            GerenciadorMensagens.ImprimeErroComando("ntf","Necessário passar o parâmetro <codigoUsuario>");
             return;
         }
 

@@ -9,6 +9,8 @@ public class Program
         repositorio.CriarLivros();
         repositorio.CriaExemplares();
         
+        GerenciadorMensagens.ImprimeInicio();
+        
         var interpretador = new HelpComando();
 
         while (true)

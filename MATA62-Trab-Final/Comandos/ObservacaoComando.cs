@@ -6,7 +6,7 @@ public class ObservacaoComando : IComando
     {
         if (args.Length < 2)
         {
-            Console.WriteLine("Uso: obs <codigoUsuario> <codigoLivro>");
+            GerenciadorMensagens.ImprimeErroComando("obs","Necessário passar os parâmetros <codigoUsuario> <codigoLivro>");
             return;
         }
 

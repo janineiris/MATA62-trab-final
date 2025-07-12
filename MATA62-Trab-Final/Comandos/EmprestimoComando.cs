@@ -6,7 +6,7 @@ public class EmprestimoComando : IComando
     {
         if (args.Length < 2)
         {
-            Console.WriteLine("Uso: emp <codigoUsuario> <codigoLivro>");
+            GerenciadorMensagens.ImprimeErroComando("emp","Necessário passar os parâmetros <codigoUsuario> <codigoLivro>");
             return;
         }
 

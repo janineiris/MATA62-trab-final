@@ -11,6 +11,6 @@ public class ComandoDesconhecido : IComando
 
     public void Executar(string[] args)
     {
-        Console.WriteLine($"Comando desconhecido: {_nome}");
+        GerenciadorMensagens.ImprimeErroComando(_nome, "Comando desconhecido");
     }
 }

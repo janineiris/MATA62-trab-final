@@ -6,7 +6,7 @@ public class InformacoesUsuarioComando : IComando
     {
         if (args.Length < 1)
         {
-            Console.WriteLine("Uso: usu <codigoUsuario>");
+            GerenciadorMensagens.ImprimeErroComando("usu","Necessário passar o parâmetro <codigoUsuario>");
             return;
         }
 

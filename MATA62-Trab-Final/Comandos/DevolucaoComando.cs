@@ -6,7 +6,7 @@ public class DevolucaoComando : IComando
     {
         if (args.Length < 2)
         {
-            Console.WriteLine("Uso: dev <codigoUsuario> <codigoLivro>");
+            GerenciadorMensagens.ImprimeErroComando("dev","Necessário passar os parâmetros <codigoUsuario> <codigoLivro>");
             return;
         }
 

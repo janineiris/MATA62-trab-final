@@ -6,7 +6,7 @@ public class ReservaComando : IComando
     {
         if (args.Length < 2)
         {
-            Console.WriteLine("Uso: res <codigoUsuario> <codigoLivro>");
+            GerenciadorMensagens.ImprimeErroComando("res","Necessário passar os parâmetros <codigoUsuario> <codigoLivro>");
             return;
         }
 

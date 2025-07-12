@@ -6,7 +6,7 @@ public class InformacoesLivroComando : IComando
     {
         if (args.Length < 1)
         {
-            Console.WriteLine("Uso: liv <codigoLivro>");
+            GerenciadorMensagens.ImprimeErroComando("liv","Necessário passar o parâmetro <codigoLivro>");
             return;
         }
 
