@@ -47,9 +47,21 @@ public class Livro
     {
         return Exemplares.FirstOrDefault(e => e.VerificaEmprestimoUsuario(codigoUsuario));
     }
+    
+    public ExemplarLivro? ObtemExemplarPorCodigo(string codigoUsuario)
+    {
+        return Exemplares.FirstOrDefault(e => e.VerificaCodigoExemplar(codigoUsuario));
+    }
 
     public bool VerificaReservaExcedemExemplares()
     {
         return ObterQuantidadeExemplaresDisponiveis() > ObterQuantidadeReservasAtivas();
+    }
+
+    public ExemplarLivro AdicionarExemplar(string codigoExemplar)
+    {
+        var exemplar = new ExemplarLivro(codigoExemplar, this);
+        Exemplares.Add(exemplar);
+        return exemplar;
     }
 }

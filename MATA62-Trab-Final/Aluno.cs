@@ -1,6 +1,6 @@
 namespace MATA62_Trab_Final;
 
-public class Aluno: UsuarioEmprestador, IEmprestador
+public abstract class Aluno: UsuarioEmprestador, IEmprestador
 {
     public bool IsAluno { get; protected set; } = true;
     public int TempoEmprestimo { get; protected set; }
