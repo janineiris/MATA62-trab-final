@@ -13,43 +13,29 @@ public class ObservacaoComando : IComando
     {
         if (args.Length < 2)
         {
-            GerenciadorMensagens.ImprimeErroComando(Comando,"necessário passar os parâmetros <codigoUsuario> <codigoLivro>");
+            GerenciadorMensagens.ImprimeErroComando(Comando, "Parâmetros necessários: <codigoUsuario> <codigoLivro>");
             return;
         }
-
-        string codigoUsuario = args[0];
-        string codigoLivro = args[1];
         
+        var codigoUsuario = args[0];
+        var codigoLivro = args[1];
         var repositorio = Repositorio.ObterInstancia();
-        var emprestador = repositorio.BuscarUsuarioEmprestadorPorCodigo(codigoUsuario);
         
-        if (emprestador is null)
+        var professor = repositorio.BuscarUsuarioEmprestadorPorCodigo(codigoUsuario) as Professor;
+        if (professor == null)
         {
-            GerenciadorMensagens.ImprimeRecursoNaoEncontrado("usuario");
-            return;
-        }
-        
-        if (emprestador.IsAluno.Equals(true))
-        {
-            GerenciadorMensagens.ImprimeErroComando(Comando,"usuário deve ser um professor");
+            GerenciadorMensagens.Imprime("Usuário não encontrado ou não é professor.");
             return;
         }
         
         var livro = repositorio.BuscarLivroPorCodigo(codigoLivro);
-        
-        if (livro is null)
+        if (livro == null)
         {
-            GerenciadorMensagens.ImprimeRecursoNaoEncontrado("livro");
-            return;
-        }
-
-        int qtdReservas = livro.Reservas.Count - 2;
-        if (qtdReservas <= 0)
-        {
-            GerenciadorMensagens.Imprime("Sem notificações no momento");
+            GerenciadorMensagens.Imprime("Livro não encontrado.");
             return;
         }
         
-        GerenciadorMensagens.Imprime($"Quantidade de notificações encontradas: {qtdReservas}");
+        livro.AdicionarObservador(professor);
+        GerenciadorMensagens.Imprime($"Professor {professor.Nome} agora observa o livro '{livro.Titulo}'.");
     }
 }

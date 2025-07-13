@@ -10,6 +10,8 @@ public class Livro
     public int AnoPublicacao { get; private set; }
     public List<Reserva> Reservas { get; private set; }
     public List<ExemplarLivro> Exemplares { get; private set; }
+    
+    private List<IObservador> observadores = new();
 
     public Livro(string codigo, string titulo, string editora, string edicao, IList<string> autores, int anoPublicacao)
     {
@@ -21,6 +23,29 @@ public class Livro
         AnoPublicacao = anoPublicacao;
         Reservas = new List<Reserva>();
         Exemplares = new List<ExemplarLivro>();
+    }
+    
+    public void AdicionarObservador(IObservador observador)
+    {
+        if (!observadores.Contains(observador))
+            observadores.Add(observador);
+    }
+
+    public void RemoverObservador(IObservador observador)
+    {
+        if (observadores.Contains(observador))
+            observadores.Remove(observador);
+    }
+    
+    public void NotificarSeReservasExcedemLimite()
+    {
+        if (ObterQuantidadeReservasAtivas() > 2)
+        {
+            foreach (var observador in observadores)
+            {
+                observador.Notificar(this);
+            }
+        }
     }
 
     public bool VerificaCodigoLivro(string codigo)
@@ -69,6 +94,13 @@ public class Livro
     {
         Reserva reserva = new Reserva(this, dataReserva, usuario);
         Reservas.Add(reserva);
+        
+        if (usuario is IEmprestador emprestador)
+        {
+            emprestador.Reservas.Add(reserva);
+        }
+        
+        NotificarSeReservasExcedemLimite();
     }
 
     public void ImprimeInformacoesExemplar()

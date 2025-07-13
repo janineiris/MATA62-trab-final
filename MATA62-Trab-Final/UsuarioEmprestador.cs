@@ -52,10 +52,4 @@ public abstract class UsuarioEmprestador: Usuario, IEmprestador
             GerenciadorMensagens.ImprimeReserva(reserva); 
         }
     }
-
-    public void RealizaReserva(Livro livro, string dataReserva)
-    {
-        Reserva reserva = new Reserva(livro, dataReserva, this);
-        Reservas.Add(reserva);
-    }
 }

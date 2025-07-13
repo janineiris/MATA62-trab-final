@@ -13,12 +13,28 @@ public class NotificacoesRecebidasComando : IComando
     {
         if (args.Length < 1)
         {
-            GerenciadorMensagens.ImprimeErroComando(Comando,"necessário passar o parâmetro <codigoUsuario>");
+            GerenciadorMensagens.ImprimeErroComando(Comando, "necessário passar o parâmetro <codigoUsuario>");
             return;
         }
-
-        string codigoUsuario = args[0];
         
-        Console.WriteLine($"Notificações recebidas do usuário {codigoUsuario}");
+        string codigoUsuario = args[0];
+        var repositorio = Repositorio.ObterInstancia();
+        
+        var usuario = repositorio.BuscarUsuarioEmprestadorPorCodigo(codigoUsuario);
+        
+        if (usuario is null)
+        {
+            GerenciadorMensagens.ImprimeRecursoNaoEncontrado("usuario");
+            return;
+        }
+        
+        if (usuario is IObservador observador)
+        {
+            GerenciadorMensagens.Imprime($"Total de notificações recebidas: {observador.ContadorNotificacoes}");
+        }
+        else
+        {
+            GerenciadorMensagens.Imprime("Usuário não está registrado como observador.");
+        }
     }
 }

@@ -3,10 +3,11 @@ namespace MATA62_Trab_Final;
 public abstract class Aluno: UsuarioEmprestador, IEmprestador
 {
     public override bool IsAluno => true;
-    public int TempoEmprestimo { get; protected set; }
-    public int LimiteEmprestimos { get; protected set; }
-    public List<Emprestimo> Emprestimos { get; protected set; } = new();
-    public List<Reserva> Reservas { get; protected set; } = new();
+    
+    // public int TempoEmprestimo { get; protected set; }
+    // public int LimiteEmprestimos { get; protected set; }
+    // public List<Emprestimo> Emprestimos { get; protected set; } = new();
+    // public List<Reserva> Reservas { get; protected set; } = new();
     
     public override bool VerificaViabilidadeEmprestimo(Livro livro)
     {
@@ -24,6 +25,4 @@ public abstract class Aluno: UsuarioEmprestador, IEmprestador
         return existeExemplarDisponivel && !existeEmprestimoAtrasado && !alunoExcedeQntdMaximaEmprestimo &&
                (existeExemplarNaoReservado || reserva is not null) && !existeEmprestimoAlunoLivro;
     }
-    
-    
 }
