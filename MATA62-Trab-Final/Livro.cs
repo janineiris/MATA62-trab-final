@@ -64,4 +64,25 @@ public class Livro
         Exemplares.Add(exemplar);
         return exemplar;
     }
+
+    public void ImprimeInformacoesExemplar()
+    {
+        int qtdReservas = ObterQuantidadeReservasAtivas();
+        GerenciadorMensagens.Imprime($"Titulo: {Titulo}");
+        GerenciadorMensagens.Imprime($"Quantidade  de reservas realizadas: {qtdReservas}");
+        if (qtdReservas > 0)
+        {
+            foreach (var r in Reservas)
+            {
+                GerenciadorMensagens.Imprime($"➞nome: {r.GetNomeUsuario()}");
+            }
+        }
+        GerenciadorMensagens.Imprime("Exemplares:");
+        foreach (var e in Exemplares)
+        {
+            GerenciadorMensagens.Imprime($"➞código: {e.CodIdentificacao}");
+            GerenciadorMensagens.Imprime($"➞status: {(e.VerificaAptoEmprestimo() ? "disponível" : "emprestado")}");
+            GerenciadorMensagens.Imprime("");
+        }
+    }
 }

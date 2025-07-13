@@ -19,6 +19,21 @@ public class InformacoesLivroComando : IComando
 
         string codigoLivro = args[0];
         
-        Console.WriteLine($"Informações do livro {codigoLivro}");
+        if (string.IsNullOrWhiteSpace(codigoLivro))
+        {
+            GerenciadorMensagens.ImprimeErroComando(Comando, "código do livro não informado");
+            return;
+        }
+        
+        var repositorio = Repositorio.ObterInstancia();
+        var livro = repositorio.BuscarLivroPorCodigo(codigoLivro);
+
+        if (livro is null)
+        {
+            GerenciadorMensagens.ImprimeRecursoNaoEncontrado("livro");
+            return;
+        }
+
+        livro.ImprimeInformacoesExemplar();
     }
 }

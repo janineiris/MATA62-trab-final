@@ -32,4 +32,9 @@ public class Reserva
     {
         return Livro.Titulo;
     }
+    
+    public string GetNomeUsuario()
+    {
+        return Usuario.Nome;
+    }
 }
