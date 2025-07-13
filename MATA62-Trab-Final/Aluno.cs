@@ -2,7 +2,7 @@ namespace MATA62_Trab_Final;
 
 public abstract class Aluno: UsuarioEmprestador, IEmprestador
 {
-    public bool IsAluno { get; protected set; } = true;
+    public override bool IsAluno => true;
     public int TempoEmprestimo { get; protected set; }
     public int LimiteEmprestimos { get; protected set; }
     public List<Emprestimo> Emprestimos { get; protected set; } = new();

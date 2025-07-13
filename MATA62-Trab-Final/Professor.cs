@@ -2,7 +2,7 @@ namespace MATA62_Trab_Final;
 
 public class Professor: UsuarioEmprestador, IEmprestador
 {
-    public bool IsAluno { get; private set; } = false;
+    public override bool IsAluno => false;
     public int TempoEmprestimo { get; private set; } = 8;
     public int LimiteEmprestimos { get; private set; } = -1;
     public List<Emprestimo> Emprestimos { get; private set; } = new();

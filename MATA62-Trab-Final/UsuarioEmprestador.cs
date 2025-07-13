@@ -6,7 +6,7 @@ public abstract class UsuarioEmprestador: Usuario, IEmprestador
     public int LimiteEmprestimos { get; set; }
     public List<Emprestimo> Emprestimos { get; set; } = new ();
     public List<Reserva> Reservas { get; set; } = new ();
-    public bool IsAluno { get; set; }
+    public virtual bool IsAluno => false;
 
     protected List<Emprestimo> ObtemEmprestimosAtrasados()
     {

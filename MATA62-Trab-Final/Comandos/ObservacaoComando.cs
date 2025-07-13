@@ -19,8 +19,37 @@ public class ObservacaoComando : IComando
 
         string codigoUsuario = args[0];
         string codigoLivro = args[1];
+        
+        var repositorio = Repositorio.ObterInstancia();
+        var emprestador = repositorio.BuscarUsuarioEmprestadorPorCodigo(codigoUsuario);
+        
+        if (emprestador is null)
+        {
+            GerenciadorMensagens.ImprimeRecursoNaoEncontrado("usuario");
+            return;
+        }
+        
+        if (emprestador.IsAluno.Equals(true))
+        {
+            GerenciadorMensagens.ImprimeErroComando(Comando,"usuário deve ser um professor");
+            return;
+        }
+        
+        var livro = repositorio.BuscarLivroPorCodigo(codigoLivro);
+        
+        if (livro is null)
+        {
+            GerenciadorMensagens.ImprimeRecursoNaoEncontrado("livro");
+            return;
+        }
 
-        // Lógica da observação aqui
-        Console.WriteLine($"Usuário {codigoUsuario} observa o livro {codigoLivro}");
+        int qtdReservas = livro.Reservas.Count - 2;
+        if (qtdReservas <= 0)
+        {
+            GerenciadorMensagens.Imprime("Sem notificações no momento");
+            return;
+        }
+        
+        GerenciadorMensagens.Imprime($"Quantidade de notificações encontradas: {qtdReservas}");
     }
 }
