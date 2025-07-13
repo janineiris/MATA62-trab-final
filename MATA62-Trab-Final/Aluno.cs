@@ -24,4 +24,6 @@ public abstract class Aluno: UsuarioEmprestador, IEmprestador
         return existeExemplarDisponivel && !existeEmprestimoAtrasado && !alunoExcedeQntdMaximaEmprestimo &&
                (existeExemplarNaoReservado || reserva is not null) && !existeEmprestimoAlunoLivro;
     }
+    
+    
 }

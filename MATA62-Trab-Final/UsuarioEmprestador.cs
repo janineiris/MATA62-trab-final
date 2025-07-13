@@ -18,7 +18,7 @@ public abstract class UsuarioEmprestador: Usuario, IEmprestador
         return Emprestimos.Where(e => !e.VerificaEmprestimoDevolvido()).ToList();
     }
     
-    protected Reserva? ObtemReservaLivro(string codigoLivro)
+    public Reserva? ObtemReservaLivro(string codigoLivro)
     {
         return Reservas.FirstOrDefault(r => r.VerificaLivroPorCodigo(codigoLivro));
     }
@@ -51,5 +51,11 @@ public abstract class UsuarioEmprestador: Usuario, IEmprestador
         {
             GerenciadorMensagens.ImprimeReserva(reserva); 
         }
+    }
+
+    public void RealizaReserva(Livro livro, string dataReserva)
+    {
+        Reserva reserva = new Reserva(livro, dataReserva, this);
+        Reservas.Add(reserva);
     }
 }

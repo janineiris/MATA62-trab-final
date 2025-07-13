@@ -64,6 +64,12 @@ public class Livro
         Exemplares.Add(exemplar);
         return exemplar;
     }
+    
+    public void RealizaReserva(Usuario usuario, string dataReserva)
+    {
+        Reserva reserva = new Reserva(this, dataReserva, usuario);
+        Reservas.Add(reserva);
+    }
 
     public void ImprimeInformacoesExemplar()
     {
@@ -74,14 +80,15 @@ public class Livro
         {
             foreach (var r in Reservas)
             {
-                GerenciadorMensagens.Imprime($"➞nome: {r.GetNomeUsuario()}");
+                GerenciadorMensagens.Imprime($"Nome do usuário: {r.GetNomeUsuario()}");
+                GerenciadorMensagens.Imprime("");
             }
         }
         GerenciadorMensagens.Imprime("Exemplares:");
         foreach (var e in Exemplares)
         {
-            GerenciadorMensagens.Imprime($"➞código: {e.CodIdentificacao}");
-            GerenciadorMensagens.Imprime($"➞status: {(e.VerificaAptoEmprestimo() ? "disponível" : "emprestado")}");
+            GerenciadorMensagens.Imprime($"Código: {e.CodIdentificacao}");
+            GerenciadorMensagens.Imprime($"Status: {(e.VerificaAptoEmprestimo() ? "disponível" : "emprestado")}");
             GerenciadorMensagens.Imprime("");
         }
     }
