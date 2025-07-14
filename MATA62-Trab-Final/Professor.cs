@@ -1,17 +1,19 @@
 namespace MATA62_Trab_Final;
 
-public class Professor: UsuarioEmprestador, IEmprestador
+public class Professor: UsuarioEmprestador, IEmprestador, IObservador
 {
-    public bool IsAluno { get; private set; } = false;
-    public int TempoEmprestimo { get; private set; } = 8;
-    public int LimiteEmprestimos { get; private set; } = -1;
-    public List<Emprestimo> Emprestimos { get; private set; } = new();
-    public List<Reserva> Reservas { get; private set; } = new();
+    public override bool IsAluno => false;
+    public string CodigoUsuario => CodIdentificacao;
+    
+    public int ContadorNotificacoes { get; private set; } = 0;
     
     public Professor(string codigo, string nome)
     {
+        TempoEmprestimo = 8;
+        LimiteEmprestimos = -1;
         CodIdentificacao = codigo;
         Nome = nome;
+        _regraEmprestimo = new RegraEmprestimoProfessor();
     }
     
     public override bool VerificaViabilidadeEmprestimo(Livro livro)
@@ -20,5 +22,11 @@ public class Professor: UsuarioEmprestador, IEmprestador
         var existeEmprestimoAtrasado = ObtemEmprestimosAtrasados().Count > 0;
 
         return existeExemplarDisponivel && !existeEmprestimoAtrasado;
+    }
+    
+    public void Notificar(Livro livro)
+    {
+        ContadorNotificacoes++;
+        GerenciadorMensagens.Imprime($"Professor {Nome} notificado: livro '{livro.Titulo}' tem mais de 2 reservas.");
     }
 }

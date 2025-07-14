@@ -13,6 +13,13 @@ public class Reserva
     public string DataReserva { get; private set; }
     private StatusReserva Status { get; set; } = StatusReserva.ATIVA;
     
+    public Reserva(Livro livro, string dataReserva, Usuario usuario)
+    {
+        Livro = livro;
+        DataReserva = dataReserva;
+        Usuario = usuario;
+    }
+    
     public void Cancelar()
     {
         Status = StatusReserva.CANCELADA;
@@ -31,5 +38,10 @@ public class Reserva
     public string GetTituloLivro()
     {
         return Livro.Titulo;
+    }
+    
+    public string GetNomeUsuario()
+    {
+        return Usuario.Nome;
     }
 }

@@ -10,6 +10,14 @@ public class Emprestimo
     public string DataDevolucaoPrevista { get; private set; }
     public string? DataDevolucao { get; private set; }
 
+    public Emprestimo(DateTime dataEmprestimo, ExemplarLivro exemplar, Usuario usuario, int diasDeEmprestimo)
+    {
+        Exemplar = exemplar;
+        Usuario = usuario;
+        DataEmprestimo = dataEmprestimo.ToString("dd/MM/yyyy", new CultureInfo("pt-BR"));
+        DataDevolucaoPrevista = dataEmprestimo.AddDays(diasDeEmprestimo).ToString("dd/MM/yyyy", new CultureInfo("pt-BR"));
+    }
+    
     public string GetNomeStatus()
     {
         return VerificaEmprestimoDevolvido() ? "Finalizado" : VerificaEmprestimoAtrasado() ? "Atrasado" : "Em curso";
@@ -23,7 +31,7 @@ public class Emprestimo
     public bool VerificaEmprestimoAtrasado()
     {
         return DataDevolucao is null &&
-               DateTime.Now > DateTime.Parse(DataDevolucaoPrevista, CultureInfo.InvariantCulture);
+               DateTime.Now > DateTime.Parse(DataDevolucaoPrevista, new CultureInfo("pt-BR"));
     }
 
     public bool VerificaUsuarioPorCodigo(string codigo)
@@ -43,6 +51,6 @@ public class Emprestimo
 
     public void Devolver()
     {
-        DataDevolucao = DateTime.Now.ToString(CultureInfo.InvariantCulture);
+        DataDevolucao = DateTime.Today.ToString("dd/MM/yyyy", new CultureInfo("pt-BR"));
     }
 }

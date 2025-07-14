@@ -1,25 +1,26 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿namespace MATA62_Trab_Final.Comandos;
 
-using MATA62_Trab_Final;
-
-var repositorio = Repositorio.ObterInstancia();
-repositorio.CriarUsuarios();
-repositorio.CriarLivros();
-repositorio.CriaExemplares();
-var interfaceComando = InterfaceComandosUsuario.ObterInstancia();
-
-GerenciadorMensagens.ImprimeInicio();
-
-string? input;
-while((input = Console.ReadLine()) != null)
+public class Program
 {
-    if (string.IsNullOrWhiteSpace(input)) continue;
-    
-    var inputArgs = input.Split(' ');
-    var comando = inputArgs.First();
-    var parametros = inputArgs.Skip(1).ToArray();
-    
-    if(comando == "sai") break;
-    
-    interfaceComando.ExecutarComando(comando, parametros);
+    public static void Main(string[] args)
+    {
+        var repositorio = Repositorio.ObterInstancia();
+        repositorio.CriarUsuarios();
+        repositorio.CriarLivros();
+        repositorio.CriaExemplares();
+        
+        GerenciadorMensagens.ImprimeInicio();
+        
+        var interpretador = InterpretadorComandos.ObterInstancia();
+        
+        while (true)
+        {
+            Console.Write("> ");
+            string linha = Console.ReadLine();
+
+            if (linha == "sair") break;
+
+            interpretador.ExecutarLinha(linha);
+        }
+    }
 }
