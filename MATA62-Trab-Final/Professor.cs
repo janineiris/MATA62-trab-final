@@ -1,8 +1,7 @@
 namespace MATA62_Trab_Final;
 
-public class Professor: UsuarioEmprestador, IEmprestador, IObservador
+public class Professor: UsuarioEmprestador, IObservador
 {
-    public override bool IsAluno => false;
     public string CodigoUsuario => CodIdentificacao;
     
     public int ContadorNotificacoes { get; private set; } = 0;
@@ -10,7 +9,6 @@ public class Professor: UsuarioEmprestador, IEmprestador, IObservador
     public Professor(string codigo, string nome)
     {
         TempoEmprestimo = 8;
-        LimiteEmprestimos = -1;
         CodIdentificacao = codigo;
         Nome = nome;
     }

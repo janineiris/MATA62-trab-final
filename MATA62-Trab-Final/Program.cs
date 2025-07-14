@@ -16,9 +16,10 @@ public class Program
         while (true)
         {
             Console.Write("> ");
-            string linha = Console.ReadLine();
+            string? linha = Console.ReadLine();
 
             if (linha == "sai") break;
+            if (linha is null) continue;
 
             interpretador.ExecutarLinha(linha);
         }

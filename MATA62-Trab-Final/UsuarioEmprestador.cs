@@ -1,12 +1,10 @@
 namespace MATA62_Trab_Final;
 
-public abstract class UsuarioEmprestador: Usuario, IEmprestador
+public abstract class UsuarioEmprestador: Usuario
 {
     public int TempoEmprestimo { get; set; }
-    public int LimiteEmprestimos { get; set; }
     public List<Emprestimo> Emprestimos { get; set; } = new ();
     public List<Reserva> Reservas { get; set; } = new ();
-    public virtual bool IsAluno => false;
 
     protected List<Emprestimo> ObtemEmprestimosAtrasados()
     {

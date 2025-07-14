@@ -13,7 +13,7 @@ public class Reserva
     public string DataReserva { get; private set; }
     private StatusReserva Status { get; set; } = StatusReserva.ATIVA;
     
-    public Reserva(Livro livro, string dataReserva, Usuario usuario)
+    public Reserva(Livro livro, string dataReserva, UsuarioEmprestador usuario)
     {
         Livro = livro;
         DataReserva = dataReserva;

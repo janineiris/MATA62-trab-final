@@ -1,8 +1,8 @@
 namespace MATA62_Trab_Final;
 
-public abstract class Aluno: UsuarioEmprestador, IEmprestador
+public abstract class Aluno: UsuarioEmprestador
 {
-    public override bool IsAluno => true;
+    public int LimiteEmprestimos { get; set; }
     
     public override bool VerificaViabilidadeEmprestimo(Livro livro, out string? motivoRejeicao)
     {

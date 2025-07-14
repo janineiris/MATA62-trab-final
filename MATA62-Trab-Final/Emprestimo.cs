@@ -5,12 +5,12 @@ namespace MATA62_Trab_Final;
 public class Emprestimo
 {
     public ExemplarLivro Exemplar { get; private set; }
-    public Usuario Usuario { get; private set; }
+    public UsuarioEmprestador Usuario { get; private set; }
     public string DataEmprestimo { get; private set; }
     public string DataDevolucaoPrevista { get; private set; }
     public string? DataDevolucao { get; private set; }
 
-    public Emprestimo(DateTime dataEmprestimo, ExemplarLivro exemplar, Usuario usuario, int diasDeEmprestimo)
+    public Emprestimo(DateTime dataEmprestimo, ExemplarLivro exemplar, UsuarioEmprestador usuario, int diasDeEmprestimo)
     {
         Exemplar = exemplar;
         Usuario = usuario;
