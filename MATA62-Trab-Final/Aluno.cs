@@ -4,11 +4,6 @@ public abstract class Aluno: UsuarioEmprestador, IEmprestador
 {
     public override bool IsAluno => true;
     
-    // public int TempoEmprestimo { get; protected set; }
-    // public int LimiteEmprestimos { get; protected set; }
-    // public List<Emprestimo> Emprestimos { get; protected set; } = new();
-    // public List<Reserva> Reservas { get; protected set; } = new();
-    
     public override bool VerificaViabilidadeEmprestimo(Livro livro)
     {
         var existeExemplarDisponivel = livro.ObterQuantidadeExemplaresDisponiveis() > 0;

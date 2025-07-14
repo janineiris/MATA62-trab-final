@@ -2,20 +2,27 @@ namespace MATA62_Trab_Final;
 
 public abstract class UsuarioEmprestador: Usuario, IEmprestador
 {
+    protected IRegraEmprestimo _regraEmprestimo;
     public int TempoEmprestimo { get; set; }
     public int LimiteEmprestimos { get; set; }
     public List<Emprestimo> Emprestimos { get; set; } = new ();
     public List<Reserva> Reservas { get; set; } = new ();
     public virtual bool IsAluno => false;
+    public IRegraEmprestimo ObterRegraEmprestimo() => _regraEmprestimo;
 
     protected List<Emprestimo> ObtemEmprestimosAtrasados()
     {
         return Emprestimos.Where(e => e.VerificaEmprestimoAtrasado()).ToList();
     }
     
-    protected List<Emprestimo> ObtemEmprestimosAtivos()
+    public List<Emprestimo> ObtemEmprestimosAtivos()
     {
         return Emprestimos.Where(e => !e.VerificaEmprestimoDevolvido()).ToList();
+    }
+
+    public Emprestimo? ObtemEmprestimoLivro(string codigoLivro)
+    {
+        return Emprestimos.FirstOrDefault(e => e.VerificaLivroPorCodigo(codigoLivro) && !e.VerificaEmprestimoDevolvido());
     }
     
     public Reserva? ObtemReservaLivro(string codigoLivro)
@@ -51,5 +58,23 @@ public abstract class UsuarioEmprestador: Usuario, IEmprestador
         {
             GerenciadorMensagens.ImprimeReserva(reserva); 
         }
+    }
+    
+    public bool RealizarEmprestimo(Livro livro, DateTime dataEmprestimo, out string erro)
+    {
+        erro = "";
+
+        var exemplar = livro.ObtemExemplarDisponivel();
+        if (exemplar is null)
+        {
+            erro = "Não há exemplares disponíveis.";
+            return false;
+        }
+
+        var emprestimo = new Emprestimo(dataEmprestimo, exemplar, this, TempoEmprestimo);
+        Emprestimos.Add(emprestimo);
+        exemplar.RegistrarEmprestimo(emprestimo);
+
+        return true;
     }
 }

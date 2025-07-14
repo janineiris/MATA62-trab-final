@@ -12,6 +12,9 @@ public class Livro
     public List<ExemplarLivro> Exemplares { get; private set; }
     
     private List<IObservador> observadores = new();
+    
+    public int QuantidadeReservas => ObterQuantidadeReservasAtivas();
+    public int QuantidadeExemplaresDisponiveis => ObterQuantidadeExemplaresDisponiveis();
 
     public Livro(string codigo, string titulo, string editora, string edicao, IList<string> autores, int anoPublicacao)
     {
@@ -47,7 +50,12 @@ public class Livro
             }
         }
     }
-
+    
+    public bool TemExemplarDisponivel()
+    {
+        return ObterQuantidadeExemplaresDisponiveis() > 0;
+    }
+    
     public bool VerificaCodigoLivro(string codigo)
     {
         return CodIdentificacao == codigo;
@@ -60,14 +68,19 @@ public class Livro
 
     public int ObterQuantidadeExemplaresDisponiveis()
     {
-        return Reservas.Where(r => r.VerificaReservaAtiva()).ToList().Count;
+        return Exemplares.Count(e => e.VerificaAptoEmprestimo());
     }
 
     public Reserva? ObtemReservaAtivaUsuario(string codigoUsuario)
     {
         return Reservas.FirstOrDefault(r => r.Usuario.VerificaCodigoUsuario(codigoUsuario) && r.VerificaReservaAtiva());
     }
-
+    
+    public ExemplarLivro? ObtemExemplarDisponivel()
+    {
+        return Exemplares.FirstOrDefault(e => e.VerificaAptoEmprestimo());
+    }
+    
     public ExemplarLivro? ObtemExemplarUsuario(string codigoUsuario)
     {
         return Exemplares.FirstOrDefault(e => e.VerificaEmprestimoUsuario(codigoUsuario));

@@ -13,6 +13,11 @@ public class ExemplarLivro
         EmprestimoAtual = null;
     }
 
+    public void RegistrarEmprestimo(Emprestimo emprestimo)
+    {
+        EmprestimoAtual = emprestimo;
+    }
+
     public bool VerificaCodigoExemplar(string codigoExemplar)
     {
         return CodIdentificacao == codigoExemplar;

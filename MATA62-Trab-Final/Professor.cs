@@ -7,8 +7,6 @@ public class Professor: UsuarioEmprestador, IEmprestador, IObservador
     
     public int TempoEmprestimo { get; private set; } = 8;
     public int LimiteEmprestimos { get; private set; } = -1;
-    // public List<Emprestimo> Emprestimos { get; private set; } = new();
-    // public List<Reserva> Reservas { get; private set; } = new();
     
     public int ContadorNotificacoes { get; private set; } = 0;
     
@@ -16,6 +14,7 @@ public class Professor: UsuarioEmprestador, IEmprestador, IObservador
     {
         CodIdentificacao = codigo;
         Nome = nome;
+        _regraEmprestimo = new RegraEmprestimoProfessor();
     }
     
     public override bool VerificaViabilidadeEmprestimo(Livro livro)

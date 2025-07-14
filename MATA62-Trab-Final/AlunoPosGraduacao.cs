@@ -8,5 +8,6 @@ public class AlunoPosGraduacao: Aluno
         LimiteEmprestimos = 3;
         CodIdentificacao = codigo;
         Nome = nome;
+        _regraEmprestimo = new RegraEmprestimoAluno(3);
     }
 }

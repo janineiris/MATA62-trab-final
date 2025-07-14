@@ -1,3 +1,5 @@
+using System.Globalization;
+
 namespace MATA62_Trab_Final.Comandos;
 
 public class ReservaComando : IComando
@@ -43,7 +45,7 @@ public class ReservaComando : IComando
             return;
         }
         
-        livro.RealizaReserva(emprestador, DateTime.Now.ToString("yyyy-MM-dd"));
+        livro.RealizaReserva(emprestador, DateTime.Today.ToString("dd/MM/yyyy", new CultureInfo("pt-BR")));
         GerenciadorMensagens.Imprime("Reserva realizada com sucesso!");
     }
 }
