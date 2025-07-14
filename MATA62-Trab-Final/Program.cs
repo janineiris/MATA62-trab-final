@@ -18,7 +18,7 @@ public class Program
             Console.Write("> ");
             string linha = Console.ReadLine();
 
-            if (linha == "sair") break;
+            if (linha == "sai") break;
 
             interpretador.ExecutarLinha(linha);
         }

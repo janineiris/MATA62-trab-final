@@ -44,8 +44,10 @@ public class ReservaComando : IComando
             GerenciadorMensagens.ImprimeErroComando(Comando, "usuário já possui reserva para este livro");
             return;
         }
-        
-        livro.RealizaReserva(emprestador, DateTime.Today.ToString("dd/MM/yyyy", new CultureInfo("pt-BR")));
+
+        var reserva =
+            livro.RealizaReserva(emprestador, DateTime.Today.ToString("dd/MM/yyyy", new CultureInfo("pt-BR")));
+        emprestador.RegistrarReserva(reserva);
         GerenciadorMensagens.Imprime("Reserva realizada com sucesso!");
     }
 }

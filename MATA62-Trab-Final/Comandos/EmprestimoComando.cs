@@ -39,11 +39,11 @@ public class EmprestimoComando : IComando
             return;
         }
         
-        var regra = emprestador.ObterRegraEmprestimo();
+        var podeEmprestar = emprestador.VerificaViabilidadeEmprestimo(livro, out var erroViabilidade);
 
-        if (!regra.PodeEmprestar(emprestador, livro, out var erro))
+        if (!podeEmprestar)
         {
-            GerenciadorMensagens.ImprimeErroComando(Comando, erro);
+            GerenciadorMensagens.ImprimeErroComando(Comando, erroViabilidade!);
             return;
         }
 

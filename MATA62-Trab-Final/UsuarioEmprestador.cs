@@ -2,13 +2,11 @@ namespace MATA62_Trab_Final;
 
 public abstract class UsuarioEmprestador: Usuario, IEmprestador
 {
-    protected IRegraEmprestimo _regraEmprestimo;
     public int TempoEmprestimo { get; set; }
     public int LimiteEmprestimos { get; set; }
     public List<Emprestimo> Emprestimos { get; set; } = new ();
     public List<Reserva> Reservas { get; set; } = new ();
     public virtual bool IsAluno => false;
-    public IRegraEmprestimo ObterRegraEmprestimo() => _regraEmprestimo;
 
     protected List<Emprestimo> ObtemEmprestimosAtrasados()
     {
@@ -35,7 +33,7 @@ public abstract class UsuarioEmprestador: Usuario, IEmprestador
         return Emprestimos.Any(e => e.VerificaLivroPorCodigo(codigoLivro) && !e.VerificaEmprestimoDevolvido());
     }
     
-    public abstract bool VerificaViabilidadeEmprestimo(Livro livro);
+    public abstract bool VerificaViabilidadeEmprestimo(Livro livro, out string? motivoRejeicao);
 
     public bool VerificaUsuarioDevedor()
     {
@@ -74,7 +72,15 @@ public abstract class UsuarioEmprestador: Usuario, IEmprestador
         var emprestimo = new Emprestimo(dataEmprestimo, exemplar, this, TempoEmprestimo);
         Emprestimos.Add(emprestimo);
         exemplar.RegistrarEmprestimo(emprestimo);
+        
+        var reserva = ObtemReservaLivro(livro.CodIdentificacao);
+        if (reserva is not null) reserva.Cancelar();
 
         return true;
+    }
+
+    public void RegistrarReserva(Reserva reserva)
+    {
+        Reservas.Add(reserva);
     }
 }

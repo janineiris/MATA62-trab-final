@@ -4,10 +4,10 @@ public abstract class Aluno: UsuarioEmprestador, IEmprestador
 {
     public override bool IsAluno => true;
     
-    public override bool VerificaViabilidadeEmprestimo(Livro livro)
+    public override bool VerificaViabilidadeEmprestimo(Livro livro, out string? motivoRejeicao)
     {
-        var existeExemplarDisponivel = livro.ObterQuantidadeExemplaresDisponiveis() > 0;
-        var existeEmprestimoAtrasado = ObtemEmprestimosAtrasados().Count > 0;
+        var existeExemplarDisponivel = livro.TemExemplarDisponivel();
+        var existeEmprestimoAtrasado = VerificaUsuarioDevedor();
         
         var quantidadeEmprestimosAtivos = ObtemEmprestimosAtivos().Count;
         var alunoExcedeQntdMaximaEmprestimo = quantidadeEmprestimosAtivos >= LimiteEmprestimos;
@@ -16,6 +16,22 @@ public abstract class Aluno: UsuarioEmprestador, IEmprestador
         var existeEmprestimoAlunoLivro = VerificaEmprestimoLivro(livro.CodIdentificacao);
 
         var reserva = ObtemReservaLivro(livro.CodIdentificacao);
+
+        motivoRejeicao = !existeExemplarDisponivel
+            ? "não há exemplares disponíveis"
+            :
+            existeEmprestimoAtrasado
+                ? "o usuário está com livro em atraso"
+                :
+                alunoExcedeQntdMaximaEmprestimo
+                    ? "o aluno já atingiu o limite de empréstimos"
+                    :
+                    !existeExemplarNaoReservado & reserva is null
+                        ?
+                        "todos os exemplares disponíveis estão reservados e o usuário não tem reserva"
+                        : existeEmprestimoAlunoLivro
+                            ? "o usuário já possui empréstimo deste livro"
+                            : null;
 
         return existeExemplarDisponivel && !existeEmprestimoAtrasado && !alunoExcedeQntdMaximaEmprestimo &&
                (existeExemplarNaoReservado || reserva is not null) && !existeEmprestimoAlunoLivro;

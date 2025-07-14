@@ -61,12 +61,12 @@ public class Livro
         return CodIdentificacao == codigo;
     }
 
-    public int ObterQuantidadeReservasAtivas()
+    private int ObterQuantidadeReservasAtivas()
     {
         return Reservas.Where(r => r.VerificaReservaAtiva()).ToList().Count;
     }
 
-    public int ObterQuantidadeExemplaresDisponiveis()
+    private int ObterQuantidadeExemplaresDisponiveis()
     {
         return Exemplares.Count(e => e.VerificaAptoEmprestimo());
     }
@@ -103,17 +103,13 @@ public class Livro
         return exemplar;
     }
     
-    public void RealizaReserva(Usuario usuario, string dataReserva)
+    public Reserva RealizaReserva(UsuarioEmprestador usuario, string dataReserva)
     {
         Reserva reserva = new Reserva(this, dataReserva, usuario);
         Reservas.Add(reserva);
         
-        if (usuario is IEmprestador emprestador)
-        {
-            emprestador.Reservas.Add(reserva);
-        }
-        
         NotificarSeReservasExcedemLimite();
+        return reserva;
     }
 
     public void ImprimeInformacoesExemplar()

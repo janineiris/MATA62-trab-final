@@ -13,13 +13,15 @@ public class Professor: UsuarioEmprestador, IEmprestador, IObservador
         LimiteEmprestimos = -1;
         CodIdentificacao = codigo;
         Nome = nome;
-        _regraEmprestimo = new RegraEmprestimoProfessor();
     }
     
-    public override bool VerificaViabilidadeEmprestimo(Livro livro)
+    public override bool VerificaViabilidadeEmprestimo(Livro livro, out string? motivoRejeicao)
     {
-        var existeExemplarDisponivel = livro.ObterQuantidadeExemplaresDisponiveis() > 0;
-        var existeEmprestimoAtrasado = ObtemEmprestimosAtrasados().Count > 0;
+        var existeExemplarDisponivel = livro.TemExemplarDisponivel();
+        var existeEmprestimoAtrasado = VerificaUsuarioDevedor();
+        
+        motivoRejeicao = !existeExemplarDisponivel ? "não há exemplares disponíveis" :
+            existeEmprestimoAtrasado ? "o usuário está com livro em atraso" : null;
 
         return existeExemplarDisponivel && !existeEmprestimoAtrasado;
     }
